@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    {% include "header.html" %}
+    </head>
+    <body>
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        <div class="page-content" id="main">
+            {% if session.user == Null %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Welcome to Real-Time Masked Face Recognition Web application!</b></h1>
+            </div>
+            {% else %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Welcome, {{ session.user }}, to the application!</b></h1>
+            </div>
+            {% endif %}
+            <div class="container justify-content-center">
+                <br>
+                <br>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <img src="{{ url_for('static',filename='images/icon/icon.png') }}" width=20%>
+                </div>
+                <br>
+                <br>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <h2>For more detail of how to use the application, click the button below!</h2>
+                </div>
+                <br>
+                <div class="d-flex justify-content-around" style="margin-left: 20%; margin-right:20%;">
+                    <a href="/help"><button class="btn btn-lg btn-dark"><b>How to use</b></button></a>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>

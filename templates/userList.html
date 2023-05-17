@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "header.html" %}
+    </head>
+    <body>
+        {% include "navBar.html" %}
+        <div class="page-content" id="main">
+            {% if session.user == Null %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Only admin users are able to access this page content.</b></h1>
+            </div>
+            {% else %}
+            <!-- content -->
+            <div id="session-data" data-session-id="{{ session.id }}"></div>
+            <div class="page-title d-flex justify-content-center" style="margin-top: 2%;">
+                <h1><b>Users List</b></h1>
+            </div>
+            <div class="userList-container d-flex mx-auto">
+                <!-- Template for now, use vfor to display the timeline data -->
+                <table class="table table-striped" id="userTable" style="vertical-align: middle;">
+                    <thead>
+                        <th class="" style="text-align: center;">
+                            <h4><b>ID</b></h4>
+                        </th>
+                        <th class="">
+                            <h4><b>Name</b></h4>
+                        </th>
+                        <th class="">
+                            <h4><b>Gender</b></h4>
+                        </th>
+                        <th class="">
+                            <h4><b>Birthday</b></h4>
+                        </th>
+                        <th class="">
+                            <h4><b>Email</b></h4>
+                        </th>
+                        <th class="">
+                            <h4><b>Position / Department</b></h4>
+                        </th>
+                        <th class=""style="text-align: center;">
+                            <h4><b>Images</b></h4>
+                        </th>
+                        <th class="" style="text-align: center;">
+                            <h4><b>Manage</b></h4>
+                        </th>
+                    </thead>
+                    <tbody>
+                        {% for list in users %}
+                        <tr>
+                            <td style="text-align: center;">
+                                <!-- ID -->
+                                {{ list.0 }}
+                            </td>
+                            <td>
+                                <!-- Name -->
+                                {{ list.2 }} {{ list.3 }}
+                            </td>
+                            <td>
+                                <!-- Gender -->
+                                {{ list.4 }}
+                            </td>
+                            <td>
+                                <!-- BD -->
+                                {{ list.5 }}
+                            </td>
+                            <td>
+                                <!-- Email -->
+                                {{ list.6 }}
+                            </td>
+                            <td>
+                                <!-- Pos / Dep -->
+                                {{ list.7 }} / {{list.8}}
+                            </td>
+                            <td style="text-align: center;">
+                                <!-- image modal display button -->
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#faceImgModal" data-id="{{ list.0 }}">Images</button>
+                            </td>
+                            <td style="text-align: center;">
+                                <!-- edit/delete buttons -->
+                                <button type="button" data-id="{{ list.0 }}" id="editUser" class="btn btn-warning editUser">Edit</button>
+                                <button type="button" data-id="{{ list.0 }}" id="delUser" class="btn btn-danger delUser" data-bs-toggle="modal" data-bs-target="#confirmModal" data-name="{{ list.2 }} {{ list.3 }}" data-dep="{{ list.8 }}" data-pos="{{ list.7 }}">Delete</button> 
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <!-- Face Img Modal -->
+                <div class="modal fade" id="faceImgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Face Images Preview</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="faceImgDisplayContent">
+                            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="maskDisplayBtn" class="btn btn-warning mask-display-btn" id="displayToggle" onclick="toggleMaskDisplay()">Image display: Unmasked</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- del confirm modal -->
+                <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this user? <br>
+                                ID: <span id="selId"></span> <br>
+                                Name: <span id="selName"></span> <br>
+                                Department: <span id="selDep"></span> <br>
+                                Position: <span id="selPos"></span> <br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger delBtn">Delete</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        <script src="{{ url_for('static', filename='js/userList.js') }}"></script>
+    </body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    {% include "header.html" %}
+    </head>
+    <body>
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        <div class="page-content" id="main">
+            {% if session.user == Null %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Only admin users are able to access this page content.</b></h1>
+            </div>
+            {% else %}
+            <!-- content -->
+            <div class="icon"><i class="fa fa-refresh" aria-hidden="true"></i></div>
+            <div class="page-title d-flex justify-content-center" style="margin-top: 2%;">
+                <h1><b>Timeline</b></h1>
+            </div>
+            <div class="container">
+                <table class="table table-striped" style="vertical-align: middle;">
+                    <thead>
+                        <th style="width:15%;">
+                            <h4><b>Date/Time</b></h4>
+                        </th>
+                        <th style="width:15%;">
+                            <h4><b>user ID</b></h4>
+                        </th>
+                        <th style="width:30%;">
+                            <h4><b>Name</b></h4>
+                        </th>
+                        <th style="width:30%;">
+                            <h4><b>Department/Position</b></h4>
+                        </th>
+                        <th style="width:10%;">
+                            <h4><b>Detail</b></h4>
+                        </th>
+                    </thead>
+                    <tbody>
+                        {% for list in timelineList %}
+                        <tr>
+                            <td type="datetime-local">
+                                {{ list.1 }}
+                            </td>
+                            <td>
+                                {% if list.2.id != None %}
+                                    {{ list.2.id }}
+                                {% else %}
+                                    
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if list.2.name != None %}
+                                    {{ list.2.name }}
+                                {% else %}
+                                    Unknown User
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ list.2.department }}/{{ list.2.position }}
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#infoModal" data-info="{{ list }}">More info.</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+        <!-- Information modal -->
+        <div class="modal" id="infoModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Detected User Information</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="infoModalBody">
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+    </body>
+    <script src="{{ url_for('static', filename='js/timeline.js') }}"></script>
+</html>

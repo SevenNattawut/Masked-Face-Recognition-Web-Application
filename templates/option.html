@@ -1,0 +1,205 @@
+<!-- WIP - if cannot finish in time, I will remove from final project -->
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "header.html" %}
+    </head>
+    <body>
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        <div class="page-content" id="main">
+            {% if session.user == Null %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Only admin users are able to access this page content.</b></h1>
+            </div>
+            {% else %}
+            <!-- content -->
+            <div class="page-title d-flex justify-content-center" style="margin-top: 2%; margin-bottom: 2%;">
+                <h1><b>Data Management</b></h1>
+            </div>
+            <div class="container">
+                <!-- position -->
+                <div id="pos">
+                    <h3>Position</h3>
+                    <div class="row">
+                        <div class="col" id="posDisplay">
+                            <div class="dropdown d-grid">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-display="static" type="button" id="posItems" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Available Positions:
+                                </button>
+                                <ul class="dropdown-menu form-control" id="posItems" name="posItems">
+                                    {% for pos in posList %}
+                                    <li style="text-align: center;">  {{ pos.1 }}  </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col" id="addPos">
+                            <h4>Add Position:</h4>
+                            <form action="{{ url_for('addPos', commit_id=session.id) }}" method="post">
+                                <label for="position">Input new position name:</label>
+                                <input type="text" class="form-control" name="newPosName" id="newPosName" placeholder="Position name">
+                                <br>
+                                <button class="btn btn-success" style="width: 100%;" type="submit">Add</button>
+                            </form>
+                        </div>
+                        <div class="col" id="editPos">
+                            <h4>Edit Position:</h4>
+                            <form action="{{ url_for('editPos', commit_id=session.id) }}" method="post">
+                                <div class="form-group">
+                                    <label for="position">From:</label>
+                                    <select class="form-control" id="position" name="position">
+                                        {% for pos in posList %}
+                                            <option value="{{ pos.0 }}">{{ pos.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                <label for="position">To:</label>
+                                <input type="text" class="form-control" name="editPosName" id="editPosName" placeholder="New position name">
+                                <br>
+                                    <button class="btn btn-warning" style="width: 100%;" type="submit">Update</button>
+                            </form>
+                        </div>
+                        <div class="col" id="deletePos">
+                            <h4>Delete Position:</h4>
+                            <form action="{{ url_for('delPos', commit_id=session.id) }}" method="post">
+                                <div class="form-group">
+                                    <label for="position">Select position to delete:</label>
+                                    <select class="form-control" id="position" name="position">
+                                        {% for pos in posList %}
+                                            <option value="{{ pos.0 }}">{{ pos.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                    <button class="btn btn-danger" style="width: 100%;" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <!-- department -->
+                <div id="dep">
+                    <h3>Department</h3>
+                    <div class="row">
+                        <div class="col" id="posDisplay">
+                            <div class="dropdown d-grid">
+                                <button class="btn btn-dark dropdown-toggle" data-bs-display="static" type="button" id="depItems" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Available Departments:
+                                </button>
+                                <ul class="dropdown-menu form-control" id="depItems" name="posItems">
+                                    {% for dep in depList %}
+                                    <li style="text-align: center;">  {{ dep.1 }}  </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col" id="addDep">
+                            <h4>Add Department:</h4>
+                            <form action="{{ url_for('addDep', commit_id=session.id) }}" method="post">
+                                <label for="department">Input new department name:</label>
+                                <input type="text" class="form-control" name="newDepName" id="newDepName" placeholder="Department name">
+                                <br>
+                                <button class="btn btn-success" style="width: 100%;" type="submit">Add</button>
+                            </form>
+                        </div>
+                        <div class="col" id="editPos">
+                            <h4>Edit Department:</h4>
+                            <form action="{{ url_for('editDep', commit_id=session.id) }}" method="post">
+                                <div class="form-group">
+                                    <label for="department">From:</label>
+                                    <select class="form-control" id="department" name="department">
+                                        {% for dep in depList %}
+                                            <option value="{{ dep.0 }}">{{ dep.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                <label for="department">To:</label>
+                                <input type="text" class="form-control" name="editDepName" id="editDepName" placeholder="New department name">
+                                <br>
+                                <button class="btn btn-warning" style="width: 100%;" type="submit">Update</button>
+                            </form>
+                        </div>
+                        <div class="col" id="deleteDep">
+                            <h4>Delete Department:</h4>
+                            <form action="{{ url_for('delDep', commit_id=session.id) }}" method="post">
+                                <div class="form-group">
+                                    <label for="department">Select position to delete:</label>
+                                    <select class="form-control" id="department" name="department">
+                                        {% for dep in depList %}
+                                            <option value="{{ dep.0 }}">{{ dep.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                    <button class="btn btn-danger" style="width: 100%;" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <!-- qna -->
+                <div id="qna">
+                    <h3>Question and Answer</h3>
+                    <div class="accordion" id="qnaDisplay">
+                        {% for list in qnaList %}
+                        <div class="accordion-item">
+                        <h2 class="accordion-header" id="question{{list.0}}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ans{{list.0}}" aria-expanded="false" aria-controls="ans{{list.0}}">
+                            {{ list.1 }}
+                            </button>
+                        </h2>
+                        <div id="ans{{list.0}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                            {{ list.2 }}
+                            </div>
+                        </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col" id="addQna">
+                            <h4>Add Question and Answer:</h4>
+                            <form action="{{ url_for('addQuestion', commit_id=session.id) }}" method="post">
+                                <label for="qna">Input new question:</label>
+                                <input type="text" class="form-control" name="newQuestion" id="newQuestion" placeholder="Question">
+                                <br>
+                                <label for="qna">Input new answer:</label>
+                                <input type="text" class="form-control" name="newAnswer" id="newAnswer" placeholder="Answer...">
+                                <br>
+                                <button class="btn btn-success" style="width: 100%;" type="submit">Add</button>
+                            </form>
+                        </div>
+                        <div class="col" id="deleteQna">
+                            <h4>Delete Question:</h4>
+                            <form action="{{ url_for('delQuestion', commit_id=session.id) }}" method="post">
+                                <div class="form-group">
+                                    <label for="qna">Select position to delete:</label>
+                                    <select class="form-control" id="question" name="question">
+                                        {% for qna in qnaList %}
+                                            <option value="{{ qna.0 }}">{{ qna.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <br>
+                                    <button class="btn btn-danger" style="width: 100%;" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- footer -->
+                <div class="footer" style="margin-top: 5%;">
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </body>
+
+</html>

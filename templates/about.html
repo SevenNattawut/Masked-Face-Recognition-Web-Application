@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include "header.html" %}
+</head>
+
+<body>
+    <!-- NavBar -->
+    {% include "navBar.html" %}
+
+    <!-- Main -->
+    <div class="page-content" id="main">
+        <div class="page-title d-flex justify-content-center" style="margin-top: 3%; margin-bottom: 2%;">
+            <h1><b>About this project</b></h1>
+        </div>
+        <div class="container">
+            <div class="title">Introduction</div>
+            <div class="paragraph">
+                The Masked Face Recognition with Machine Learning in the Web Application project aims to develop a
+                facial recognition system that can recognize and identify individuals, even when they are wearing masks.
+                This is important as the COVID-19 pandemic has led to widespread mask-wearing, which can make it
+                difficult for existing facial recognition systems to work properly.
+            </div>
+            <div class="paragraph">
+                The goal of this project is to create a web application that can be used in communal areas, such as
+                apartments or offices, where a facial recognition system is used for security purposes. This would allow
+                individuals to pass the scanning process while wearing masks, making it more convenient and safe for
+                everyone involved.
+            </div>
+            <div class="title">How it works</div>
+            <div class="paragraph">
+                The camera will capture the video and try to detect the people face in each frame. It will compare the cropped face
+                image with the model to find the name from the confidence percentage. Then, display the name, confidence percentage, and highlight the face on the screen. 
+                And record to the user timeline table at the same time.
+            </div>
+            <div class="title">Technologies and Tools</div>
+            <br>
+            <div class="d-flex justify-content-evenly">
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#python-card" role="button" aria-expanded="false" aria-controls="python-card">
+                    <img src="{{ url_for('static',filename='images/tools/Python.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Python</h5>
+                        <p class="card-text collapse" id="python-card">
+                            Python is an object-oriented high level programming language. It is used to develop websites, build
+                            automated software, or analyze data. With its simple syntax and vast libraries, it allows programmers to
+                            achieve many tasks with ease.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#tf-card" role="button" aria-expanded="false" aria-controls="tf-card">
+                    <img src="{{ url_for('static',filename='images/tools/TensorFlow.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Tensorflow</h5>
+                        <p class="card-text collapse" id="tf-card">
+                            TensorFlow is an open source software library for machine learning and deep learning purposes. It is
+                            notably used to build and train machine learning models which include facial recognition.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#keras-card" role="button" aria-expanded="false" aria-controls="keras-card">
+                    <img src="{{ url_for('static',filename='images/tools/Keras.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Keras</h5>
+                        <p class="card-text collapse" id="keras-card">
+                            Keras is a deep learning API running on the TensorFlow platform. It is mainly used to implement neural
+                            networks. Notable networks are provided in its methods, namely VGG and ResNet.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#skl-card" role="button" aria-expanded="false" aria-controls="skl-card">
+                    <img src="{{ url_for('static',filename='images/tools/scikit-learn.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Scikit-Learn</h5>
+                        <p class="card-text collapse" id="skl-card">
+                            Scikit-learn is a Python library providing tools and algorithms for machine learning and modeling which
+                            covers: regression, classification, clustering, and model selection.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-evenly">
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#cv-card" role="button" aria-expanded="false" aria-controls="cv-card">
+                    <img src="{{ url_for('static',filename='images/tools/OpenCV.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">OpenCV</h5>
+                        <p class="card-text collapse" id="cv-card">
+                            OpenCV is an open source software library built for computer vision and machine learning. The library
+                            contains a lot of optimized algorithms used for a variety of tasks, for example, facial detection and recognition,
+                            object detection, movement tracking, and similar image search.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#flask-card" role="button" aria-expanded="false" aria-controls="flask-card">
+                    <img src="{{ url_for('static',filename='images/tools/Flask.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Flask</h5>
+                        <p class="card-text collapse" id="flask-card">
+                            Flask is the Python-based web framework library which is good for small scale web applications. It can
+                            be used to create the backend side of the application, including APIs and can run a small trafic scale local server for development.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#html-card" role="button" aria-expanded="false" aria-controls="html-card">
+                    <img src="{{ url_for('static',filename='images/tools/HTML5.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">HTML</h5>
+                        <p class="card-text collapse" id="html-card">
+                            HTML, or HyperText Markup Language, is a markup language for documents designed to be displayed on web browsers.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#css-card" role="button" aria-expanded="false" aria-controls="css-card">
+                    <img src="{{ url_for('static',filename='images/tools/CSS3.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">CSS</h5>
+                        <p class="card-text collapse" id="css-card">
+                            CSS, or Casacding Style Sheets, is a styling sheet language used for describing elements presentation on documents used markup languages such as HTML, or XML.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="d-flex justify-content-evenly">
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#bs-card" role="button" aria-expanded="false" aria-controls="bs-card">
+                    <img src="{{ url_for('static',filename='images/tools/Bootstrap.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Bootstrap</h5>
+                        <p class="card-text collapse" id="bs-card">
+                            Bootstrap is a CSS framework used to enhance web design and functionality. It offers pre-designed 
+                            templates and components that can be easily customized with CSS.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#js-card" role="button" aria-expanded="false" aria-controls="js-card">
+                    <img src="{{ url_for('static',filename='images/tools/JavaScript.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">JavaScript</h5>
+                        <p class="card-text collapse" id="js-card">
+                            JavaScript, shorten as JS, is a programming language that is one of the core technology of the World Wide Web.
+                            It is what makes many websites become interactive.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#jqy-card" role="button" aria-expanded="false" aria-controls="jqy-card">
+                    <img src="{{ url_for('static',filename='images/tools/jQuery.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">jQuery</h5>
+                        <p class="card-text collapse" id="jqy-card">jQuery is a JavaScript framework used to simplify web development by providing pre-built functions
+                            and methods. It allows for easier manipulation of HTML documents and enables the creation of interactive
+                            web pages by selecting specific web elements and triggering JavaScript functions on them.
+                        </p>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;" data-bs-toggle="collapse" href="#mysql-card" role="button" aria-expanded="false" aria-controls="mysql-card">
+                    <img src="{{ url_for('static',filename='images/tools/MySQL.png') }}" class="card-img-top mx-auto" style="width: 30%;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">MySQL</h5>
+                        <p class="card-text collapse" id="mysql-card">MySQL database is a relational database that stores the data in the form of tables that connect to each
+                            other by using keys. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="title">Credit</div>
+            <div class="d-flex justify-content-around">
+                <div>
+                    <h5>Members:</h5>
+                    Nattawut Na Lumpoon <br>
+                    Pavat Poonpinij <br>
+                </div>
+                <div>
+                    <h5>Advisors:</h5>
+                    Assoc. Prof. Dr. Naruemon Wattanapongsakorn <br>
+                    Dr. Sansiri Tarnpradab <br>
+                </div>
+            </div>
+            <div class="title">Acknowledgement</div>
+            <div class="paragraph">
+                We would like to express our gratitude to our advisor Assoc. Prof. Dr. Naruemon Wattanapongsakorn and our co-advisor, Dr. Sansiri Tarnpradab, of the Computer engineering department. They gave us the
+opportunity to do the project on the topic Real-time Masked Face Recognition and Identification with Machine Learning on The Web Application which also helped us and gave suggestions, making us expand our
+knowledge in Machine Learning field and Web Application development field.
+            </div>
+            <div class="paragraph">
+                Secondly, we would also like to thank you our committees for every comment and suggestions, which
+                helps improve our project. We are very thankful to them.
+            </div>
+            <div class="paragraph">
+                Finally, we would also thank our friends and our families who helped and supported us a lot in this
+                project. We are making this project to increase our knowledge. Thank you again to all who helped us. We
+                really appreciated the help and support.
+            </div>
+        </div>
+        <div class="footer" style="margin-top: 5%;">
+        </div>
+    </div>
+</body>
+
+</html>

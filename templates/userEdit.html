@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "header.html" %}
+    </head>
+    <body scroll="no">
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        {% if session.user == Null %}
+            <div class="page-title d-flex justify-content-center" style="margin-top: 8%;">
+                <h1><b>Only admin users are able to access this page content.</b></h1>
+    
+            </div>
+        {% else %}
+            <div class="d-flex flex-row mb-3" id="main">
+        
+                <div class="bg-secondary" id="camDisplay">
+                    <!-- image mode -->
+                    <div class="btn-group btn-group-lg captureMenu">
+                        <!-- capture button -->
+                        <button type="button" class="btn btn-dark" id="captureBtn"><i class="bi bi-camera"></i> Capture</button>
+                        <button type="button" class="btn btn-secondary" id="maskBtn" onclick="toggleMaskMode()">Capture images: Masked</button>
+                    </div>
+
+                    <img id="liveVdo" src="{{ url_for('video_feed') }}" width="100%" height="100%">
+                </div>
+                <div class="page-content" id="infoSlot">
+                    <!-- flash message display -->
+                    {% with msgs = get_flashed_messages() %}
+                        {% if msgs %}
+                            {% for msg in msgs %}
+                                <div class="d-flex justify-content-center" style="display: block; position: relative; z-index: 10; left: 50%; transform: translateX(-50%);">
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ msg }}<button class="btn-close" data-bs-dismiss="alert"></button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="d-flex justify-content-center">
+                        <h2>Edit user info</h2>
+                    </div>
+                    <div>
+                        <p style="text-align: center;">
+                            Please enter any new information.<br>
+                            If you want to keep the existing information, simply leave the field blank.
+                        </p>
+                    </div>
+                    <form action="{{ url_for('updateInfo', user_id=user_id, commit_id=session.id) }}" method="post">
+                        <div class="form-group">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{ user.first_name }}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="{{ user.last_name }}">
+                        </div>
+                        <br>
+                        <div class="form-group d-flex align-content-around">
+                            <div class="col-6">
+                                <label for="gender">Gender:</label>
+                                <select class="form-control" id="gender" name="gender">
+                                    <option value="Male" {% if user.gender == 'Male' %}selected{% endif %}>Male</option>
+                                    <option value="Female" {% if user.gender == 'Female' %}selected{% endif %}>Female</option>
+                                    <option value="Other" {% if user.gender == 'Other' %}selected{% endif %}>Other</option>
+                                </select>
+                            </div>
+                            <div class="col-6 d-flex justify-content-center">
+                                <div class="form-check d-inline-block">
+                                    <br>
+                                    <input type="checkbox" class="form-check-input" id="isAdmin" name="isAdmin" onchange="togglePasswordFields()" {{ "checked" if user.is_admin == 1 else "" }}>
+                                    <label class="form-check-label" for="isAdmin">Admin</label>
+                                    <input type="hidden" id="isAdmin" name="isAdmin" {{ "checked" if user.is_admin == 1 else "" }}>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="birthday">Birthday:</label>
+                            <input type="text" class="form-control" id="birthday" name="birthday" placeholder="{{ user.birthday }}">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="{{ user.email }}">
+                        </div>
+                        <br>
+                        <div class="form-group" id="passwordFields" style="display: none;">
+                            <label for="password">Password:</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                            <br>
+                        </div>
+                        <div class="form-group" id="passwordFields" style="display: none;">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword">
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department:</label>
+                            <select class="form-control" id="department" name="department">
+                                {% for dep in depList %}
+                                    <option value="{{ dep.0 }}" {% if dep.0 == user.dep_id %}selected{% endif %}>{{ dep.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="position">Position:</label>
+                            <select class="form-control" id="position" name="position">
+                                {% for pos in posList %}
+                                    <option value="{{ pos.0 }}" {% if pos.0 == user.pos_id %}selected{% endif %}>{{ pos.1 }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label for="contact">Contact:</label>
+                            <input type="text" class="form-control" id="contact" name="contact" rows="3" placeholder="{{ user.contacts }}">
+                        </div>
+                        <br>
+                        <div class="d-flex">
+                            <div style="padding-right: 5%;">
+                                Face Images:
+                            </div>
+                            <div>
+                                <span id="mask">Mask: No New Data <i class="bi bi-x"></i></span><br>
+                                <span id="unmask">Unmask: No New Data <i class="bi bi-x"></i></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <!-- captured images json -->
+                            <input type="hidden" name="captured_data" id="captured_data">
+                            <input type="hidden" name="masked_captured_data" id="masked_captured_data">
+
+                            <!-- Button trigger modal -->
+                            <button type="button" id="faceImgPreview" class="btn btn-primary" style="width: 100%;" data-bs-toggle="modal" data-bs-target="#faceImgModal">
+                                Face Images Preview
+                            </button>
+                            <br>
+                        </div>
+                        <br>
+                        <div class="d-flex justify-content-between">
+                            <button type="submit" id="Submit" style="width: 40%;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#progressModal" value="Update" disabled>Update</button>
+                            <button type="button" id="Cancel" style="width: 40%;" class="btn btn-danger ml-2" onclick="window.history.back()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Face Image Modal -->
+                <div class="modal fade" id="faceImgModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Face Images Preview</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" id="faceImgDisplayContent">
+                            
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="maskDisplayBtn" class="btn btn-warning mask-display-btn" id="displayToggle" onclick="toggleMaskDisplay()">Image Display: Mask</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Progress Modal -->
+                <div class="modal fade" id="progressModal" tabindex="-1" aria-labelledby="progress" aria-hidden="true">
+                    <div class="modal-dialog modal-sm modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Upload Progress</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="d-flex justify-content-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    &nbsp;&nbsp;Updating user data...
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </body>
+    <script>
+        window.addEventListener('load', function() {
+            if ('{{ user.is_admin }}') {
+                togglePasswordFields();
+            }
+        });
+
+        function togglePasswordFields() {
+            var passwordFields = document.querySelectorAll("#passwordFields");
+            var isAdmin = document.querySelector("#isAdmin").checked;
+
+            for (var i = 0; i < passwordFields.length; i++) {
+                passwordFields[i].style.display = isAdmin ? "block" : "none";
+            }
+            document.querySelector("#isAdmin").value = isAdmin ? "True" : "False";
+        }
+
+        // Get the form and submit button elements
+        const form = document.querySelector('form');
+        const submitBtn = document.querySelector('#Submit');
+
+        // Add an event listener to the form for changes
+        form.addEventListener('input', function() {
+            // Get the input elements
+            const firstNameInput = document.querySelector('#firstName');
+            const lastNameInput = document.querySelector('#lastName');
+            const genderInput = document.querySelector('#gender');
+            const isAdminInput = document.querySelector('#isAdmin');
+            const birthdayInput = document.querySelector('#birthday');
+            const emailInput = document.querySelector('#email');
+            const departmentInput = document.querySelector('#department');
+            const positionInput = document.querySelector('#position');
+            const contactInput = document.querySelector('#contact');
+            const passwordInput = document.querySelector('#password');
+            const confirmPasswordInput = document.querySelector('#confirmPassword');
+            
+            // Validate the inputs
+            const firstName = firstNameInput.value.trim();
+            const lastName = lastNameInput.value.trim();
+            const gender = genderInput.value.trim();
+            const isAdmin = isAdminInput.checked;
+            const birthday = birthdayInput.value.trim();
+            const email = emailInput.value.trim();
+            const department = departmentInput.value.trim();
+            const position = positionInput.value.trim();
+            const contact = contactInput.value.trim();
+            const password = passwordInput.value.trim();
+            const confirmPassword = confirmPasswordInput.value.trim();
+            
+            const isFirstNameValid = firstName !== '';
+            const isLastNameValid = lastName !== '';
+            const isGenderValid = gender !== '';
+            const isBirthdayValid = birthday !== '';
+            const isEmailValid = email !== '';
+            const isDepartmentValid = department !== '';
+            const isPositionValid = position !== '';
+            const isContactValid = contact !== '';
+            const isPasswordValid = !isAdmin || (isAdmin && password !== '');
+            const isConfirmPasswordValid = !isAdmin || (isAdmin && confirmPassword !== '');
+            const isPasswordsMatch = !isAdmin || (isAdmin && password === confirmPassword);
+            
+            // Enable/disable the submit button based on the input validity
+            submitBtn.disabled = !(
+                isFirstNameValid ||
+                isLastNameValid ||
+                isGenderValid ||
+                isBirthdayValid ||
+                isEmailValid ||
+                isDepartmentValid ||
+                isPositionValid ||
+                isContactValid ||
+                isPasswordValid ||
+                isConfirmPasswordValid ||
+                (!isAdmin || (isAdmin && isPasswordsMatch))
+            );
+        });
+
+
+        $(document).ready(function() {
+            $('#birthday').datepicker({
+                format: 'dd/mm/yyyy'
+            });
+        });
+
+        let maskMode = true
+        function toggleMaskMode() {
+            if (maskMode === false) {
+                maskMode = true;
+                document.querySelector("#maskBtn").innerHTML = 'Captured images: Masked';
+
+            } else {
+                maskMode = false;
+                document.querySelector("#maskBtn").innerHTML = 'Captured images: Unmasked';
+            }
+        }
+         
+
+        let capture = false;
+        document.getElementById("captureBtn").addEventListener("click", async function() {
+            capture = !capture;
+            if (capture) {
+                $("#maskBtn").attr("disabled", "disabled");
+                // Start capture
+                var socket = io.connect('http://' + document.domain + ':' + location.port);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/start_capture", true);
+                xhr.send();
+                socket.once('face_data', function(data) {
+                    json_dat = JSON.parse(data)
+                    console.log(json_dat)
+                    if (maskMode === false) {
+                        document.querySelector("#captured_data").value = JSON.stringify(json_dat);
+                        document.querySelector("#unmask").innerHTML = 'Unmasked: New Data Ready <i class="bi bi-check"></i>';
+                    } else {
+                        document.querySelector("#masked_captured_data").value = JSON.stringify(json_dat);
+                        document.querySelector("#mask").innerHTML = 'Masked: New Data Ready <i class="bi bi-check"></i>';
+                    }
+                    $("#maskBtn").removeAttr("disabled");
+                    socket.off('face_data');
+                    socket.disconnect();
+                    capture = false;
+
+                    let capturedData = document.querySelector("#captured_data").value;
+                    let maskedCapturedData = document.querySelector("#masked_captured_data").value;
+                    if (capturedData && maskedCapturedData && capturedData.trim() !== "" && maskedCapturedData.trim() !== "") {
+                        $("#faceImgPreview").attr("disabled", false);
+                    }
+                });
+            } else {
+                // Stop capture
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/stop_capture", true);
+                xhr.send();
+                socket.off('face_data');
+                socket.disconnect();
+            }
+        });
+
+        $('#faceImgModal').on('show.bs.modal', function (e) {
+            var userId = "{{ user_id }}";
+            // Get the contents of the input
+            let capturedData = "";
+            let maskedCapturedData = "";
+            try{
+                capturedData = JSON.parse(document.querySelector("#captured_data").value);
+            } catch(e) {
+                
+            }
+
+            try{
+                maskedCapturedData = JSON.parse(document.querySelector("#masked_captured_data").value);
+            } catch(e) {
+                
+            }
+            
+            let modalContents = "";
+
+            // Generate the contents of the modal
+            let unmaskedModalContent = "";
+            let imageCount = 0;
+            let imgType = "train/";
+
+            // unmask img
+            for (let i = 1; i <= 100; i++) {
+                if (capturedData === "") {
+                    // If the input is empty, display the image from the file server
+                    if (i > 70) {
+                        imgType = "test/";
+                    }
+                    var imagePath = "faceImgs/unmasked/" + imgType + userId + "/" + i + ".jpg";
+                    var imageUrl = "/static/" + imagePath;
+                    if ((i-1) % 5 === 0) {
+                        if (i-1 > 0) {
+                            unmaskedModalContent += "</div>";
+                        }
+                        unmaskedModalContent += "<div class='unmasked' style='display: none; flex-wrap: wrap; justify-content: space-between;'>";
+                    }
+                    unmaskedModalContent += `<img src="${imageUrl}" style="width:175px; height:175px; margin:10px;">`;
+                    imageCount++;
+                } else {
+                    if ((i-1) % 5 === 0) {
+                        if (i-1 > 0) {
+                            unmaskedModalContent += "</div>";
+                        }
+                        unmaskedModalContent += "<div class='unmasked' style='display: none; flex-wrap: wrap; justify-content: space-between;'>";
+                    }
+                    if (capturedData[i-1] && capturedData[i-1].image_base64) {
+                        unmaskedModalContent += `<img src="data:image/jpeg;base64,${capturedData[i-1].image_base64}" style="width:175px; height:175px; margin:10px;">`;
+                        imageCount++;
+                        if (imageCount === 100) {
+                            unmaskedModalContent += "</div>";
+                        }
+                    }
+                }
+            }
+            unmaskedModalContent += "</div>";
+            
+
+            // masked img
+            let maskedModalContent = "";
+            imageCount = 0;
+            imgType = "train/";
+            for (let i = 1; i <= 100; i++) {
+                if (maskedCapturedData === "") {
+                    // If the input is empty, display the image from the file server
+                    if (i > 70) {
+                        imgType = "test/";
+                    }
+                    var imagePath = "faceImgs/masked/" + imgType + userId + "/" + i + ".jpg";
+                    var imageUrl = "/static/" + imagePath;
+                    if ((i-1) % 5 === 0) {
+                        if (i-1 > 0) {
+                            maskedModalContent += "</div>";
+                        }
+                        maskedModalContent += "<div class='masked' style='display: flex; flex-wrap: wrap; justify-content: space-between;'>";
+                    }
+                    maskedModalContent += `<img src="${imageUrl}" style="width:175px; height:175px; margin:10px;">`;
+                    imageCount++;
+                } else {
+                    if ((i-1) % 5 === 0) {
+                        if (i-1 > 0) {
+                            maskedModalContent += "</div>";
+                        }
+                        maskedModalContent += "<div class='masked' style='display: flex; flex-wrap: wrap; justify-content: space-between;'>";
+                    }
+                    if (maskedCapturedData[i-1] && maskedCapturedData[i-1].image_base64) {
+                        maskedModalContent += `<img src="data:image/jpeg;base64,${maskedCapturedData[i-1].image_base64}" style="width:175px; height:175px; margin:10px;">`;
+                        imageCount++;
+                        if (imageCount === 100) {
+                            maskedModalContent += "</div>";
+                        }
+                    }
+                }
+            }
+            maskedModalContent += "</div>";
+            
+
+            modalContents = maskedModalContent.concat(unmaskedModalContent);
+
+            // Set the contents of the modal
+            document.getElementById("faceImgDisplayContent").innerHTML = modalContents
+        });
+
+        let maskDisplay = false;
+        function toggleMaskDisplay() {
+            maskDisplay = !maskDisplay; // toggle maskDisplay value
+            
+            const unmasked = document.querySelectorAll('.unmasked');
+            const masked = document.querySelectorAll('.masked');
+
+            if (maskDisplay){
+                document.querySelector('#maskDisplayBtn').innerHTML = 'Image display: Masked';
+            }
+            else{
+                document.querySelector('#maskDisplayBtn').innerHTML = 'Image display: Unmasked';
+            }
+            
+            unmasked.forEach((el) => {
+                el.style.display = maskDisplay ? 'none' : 'flex';
+            });
+            
+            masked.forEach((el) => {
+                el.style.display = maskDisplay ? 'flex' : 'none';
+            });
+        }
+
+        window.addEventListener("beforeunload", function(event) {
+            $.ajax({
+                type: "GET",
+                url: "/release_camera"
+            });
+        });
+    </script>
+</html>

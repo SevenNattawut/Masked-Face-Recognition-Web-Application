@@ -1,0 +1,82 @@
+<!-- navBar element, separate for refactoring reason -->
+<!-- login page will use its own navbar because it uses different UI -->
+<div id="navBar">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static',filename='images/icon/icon.png') }}" style="width:5vh;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- normal menu -->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('index') }}"href="{{ url_for('index') }}">Main menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('about') }}" href="{{ url_for('about') }}">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('liveCam') }}" href="{{ url_for('liveCam') }}">Live Camera</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ 'active' if request.path == url_for('help') }}" href="{{ url_for('help') }}">User Manual</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- login button -->
+            {% if session.user == Null %}
+            <div id="login" class="d-flex justify-content-end">
+                <a href="{{ url_for('login') }}"><button class="btn btn-light"><b>Login</b></button></a>
+            </div>
+            {% else %}
+            <!-- user menu -->
+            <div class="btn-group">
+                <a class="btn text-light bg-dark" type="button">
+                    <img src="{{ url_for('static',filename='faceImgs/unmasked/train/' + session.id|string + '/1.jpg' ) }}" style="width:5vh;"> {{ session.user }}
+                </a>
+                <button class="btn bg-dark text-light dropdown-toggle dropdown-toggle-split" type="button" id="userActions" data-bs-toggle="dropdown" aria-expanded="false" style="outline: 0; box-shadow: none;">
+                </button>
+                <div id="session-data" data-session-id="{{ session.id }}"></div>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="userActions">
+                    <!-- for admin user only -->
+                    <div>
+                        <li><a class="dropdown-item {{ 'active' if request.path == url_for('timeline') }}" href="{{ url_for('timeline') }}">Timeline</a></li>
+                        <li><a class="dropdown-item {{ 'active' if request.path == url_for('userAdd') }}" href="{{ url_for('userAdd') }}">Add new user</a></li>
+                        <li><a class="dropdown-item {{ 'active' if request.path == url_for('userList') }}" href="{{ url_for('userList') }}">Users list</a></li>
+                        <li><a class="dropdown-item {{ 'active' if request.path == url_for('dataManage') }}" href="{{ url_for('dataManage') }}">Data Management</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#commitLog">User action log</a></li>
+                        <li><a class="dropdown-item" id="trainBtn" >Train the new model</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    </div>
+                    <li><a class="dropdown-item" href="{{ url_for('signout') }}">Log out</a></li>
+                </ul>
+            </div>
+            {% endif %}
+
+        </div>
+    </nav>
+</div>
+
+<!-- Commit log Modal -->
+<div class="modal fade" id="commitLog" tabindex="-1" aria-labelledby="commitLog" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">User Action Log</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="log_table">
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/navBar.js') }}"></script>

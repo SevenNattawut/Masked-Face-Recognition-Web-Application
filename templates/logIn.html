@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    {% include "header.html" %}
+</head>
+
+<body>
+    <div id="navBar">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">
+                    <img src="{{ url_for('static',filename='images/icon/icon.png') }}" style="width:5vh;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+    </div>
+    <div class="page-content" id="main">
+        <div class="page-title d-flex justify-content-center" style="margin-top: 8%; margin-bottom: 1%;">
+            <h1><b>Sign in</b></h1>
+        </div>
+        <div class="d-flex justify-content-center" style="display: block;">
+            &nbsp;
+            {% with msgs = get_flashed_messages() %}
+            {% if msgs %}
+            {% for msg in msgs %}
+            <div class="alert alert-danger" role="alert">
+                {{ msg }}<button class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            &nbsp;
+        </div>
+        <div class="container" style="margin-top: 1%; max-width: 20%;">
+            <form action="{{ url_for('signin') }}" method="post">
+                <div class="form-outline mb-4">
+                    <label>Email:</label>
+                    <input type="text" id="email" class="form-control" name="femail" />
+                </div>
+                <div class="form-outline mb-4">
+                    <label>Password:</label>
+                    <div class="d-flex">
+                        <input type="password" id="password" class="form-control" name="fpass" />
+                        <button type="button" class="btn btn-dark bi bi-eye-slash" id="togglePassword" onclick="toggleField()"></button>
+                    </div>
+                </div>
+                <br>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-dark" type="submit" value="Submit">Sign in</button>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <button class="btn btn-link text-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Please notify the HR department or admin to update your password.">Forget password?<br>New member?</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    pwShow = false;
+
+    function toggleField() {
+        if (pwShow) {
+            $('#password').attr('type', 'password');
+            pwShow = false;
+        }
+        else {
+            $('#password').attr('type', 'text');
+            pwShow = true;
+        }
+        $('#togglePassword').toggleClass('bi-eye-slash')
+        $('#togglePassword').toggleClass('bi-eye')
+    }
+
+    // tooltip display script (from Bootstrap)
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
+
+</html>

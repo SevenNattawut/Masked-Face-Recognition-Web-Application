@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "header.html" %}
+    </head>
+    <body scroll="no">
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        <div class="d-flex flex-row mb-3" id="main">
+            <div class="bg-secondary" id="camDisplay">
+                <!-- Will make a separate video for face recognition and report user data -->
+                <img id="liveVdo" src="{{ url_for('video_feed_recog') }}" width="100%" style="top: 0px;">
+            </div>
+            <div class="page-content">
+                <div class="d-flex justify-content-center" id="setting">
+                    <label for="gender" class="align-self-center">Current Model: </label>
+                    <select class="form-control" id="modelUsed" name="modelUsed" style="width:50%;">
+                        <option value="VGG16" {% if model_used == 'VGG16' %}selected{% endif %}>VGG16</option>
+                        <option value="VGGFace" {% if model_used == 'VGGFace' %}selected{% endif %}>VGGFace</option>
+                        <option value="IncepResNet" {% if model_used == 'IncepResNet' %}selected{% endif %}>Inception Resnet</option>
+                    </select>
+                </div>
+                <div style="padding-left: 10%; padding-right: 10%;"><hr></div>
+                <div id="pplList">
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const modelSelect = document.getElementById('modelUsed');
+        const currentModel = '{{ model_used }}';
+
+        modelSelect.addEventListener('change', () => {
+            const selectedModel = modelSelect.value;
+            if (selectedModel !== currentModel) {
+                // Send an AJAX request to the server to update the model
+                fetch('/changeModel', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({model: selectedModel})
+                })
+                .then(data => {
+                    console.log('New model name:', data.model_name);
+                    location.reload()
+                })
+                .catch(error => {
+                    console.error('Error updating model:', error);
+                });
+            }
+        });
+
+        var newestInfo = null;
+
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        const liveVdo = document.querySelector('#liveVdo');
+        liveVdo.onload = function() {
+
+            // check connection
+            socket.on('connect', function() {
+                console.log('connected to server');
+            });
+
+            // call the function every second
+            setInterval(function() {
+                // console.log('emitToServer');
+                socket.emit('recentInfo');
+            }, 1000);
+
+            socket.on('recentInfo', function(data) {
+                const userTimestamp = JSON.parse(data);
+                
+                // console.log("signal receive")
+                console.log("Received recent info:", userTimestamp);
+                if (JSON.stringify(newestInfo) !== JSON.stringify(userTimestamp)) {
+                    addListAbove(userTimestamp);
+                    newestInfo = userTimestamp
+                }
+            });
+        }
+        
+        const pageContent = document.getElementById('pplList');
+
+        // append a new div to the first sequence of the big div (#pplList)
+        function addListAbove(userTimestamp) {
+            const newList = document.createElement('div');
+            newList.className = 'detectedTimeline';
+            newList.className = 'd-flex';
+            newList.style.width = '100%';
+            newList.style.paddingLeft = '1%';
+            newList.style.paddingRight = '3%';
+            // add timeline, id and name content
+            newList.innerHTML = `
+            <div>
+                <img src="data:image/jpeg;base64,${userTimestamp.base64}" style="width:100px; height:100px;">
+            </div>
+            <div style="padding-left: 20px;">
+                <b>Timestamp:</b> ${userTimestamp.timestamp} <br>
+                <b>ID:</b> ${userTimestamp.id} <br>
+                <b>Name:</b> ${userTimestamp.name} <br>
+                <b>Dep/Pos:</b> ${userTimestamp.position} / ${userTimestamp.department}
+            </div>    
+            `;
+            pageContent.insertBefore(newList, pageContent.firstChild);
+        }
+
+        window.addEventListener("beforeunload", function(event) {
+            $.ajax({
+                type: "GET",
+                url: "/release_camera"
+            });
+        });
+    </script>
+</html>

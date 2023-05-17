@@ -1,0 +1,242 @@
+/* body*/
+body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+/* web sections */
+/* custom scroll bar */
+/* overall */
+::-webkit-scrollbar
+{
+	width: 10px;
+}
+
+/* track */
+::-webkit-scrollbar-track
+{
+	background-color: transparent;
+}
+
+/* thumb */
+::-webkit-scrollbar-thumb
+{
+	background-color: rgb(53, 53, 53);
+    border-radius: 20px;
+}
+
+/* NavBar */
+.navbar{
+    height: 8vh;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.navbar-nav > li{
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.dropdown-item.active{
+    background-color:#7e8688 !important;
+}
+
+
+/* content part (not navbar) */
+.page-content{
+    overflow-y: overlay;
+    height: 92vh;
+    background-color: #DEDEDE;
+}
+
+/* title */
+.text-title{
+    text-align: center;
+}
+
+/* content */
+.text-content{
+    text-align: center;
+}
+
+.title{
+    margin-top: 1em;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.paragraph {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-indent: 3em;
+}
+  
+.paragraph::after {
+    content: "  ";
+    display: block;
+    margin-bottom: 1em;
+}
+
+.text-no-ud {
+    text-decoration: none;
+}
+
+/* accordian custom theme */
+.accordion-button{
+    background: #292b2c  !important;
+    color: #ffffff !important;
+}
+
+.accordion-button::after{
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+.accordion-button:hover{
+    background: #484b4d  !important;
+    color: #ffffff !important;
+}
+
+.accordion-button:not(.collapsed){
+    background: #484b4d  !important;
+    color: #ffffff !important;
+}
+
+.accordion-button:not(.collapsed):hover{
+    background: #82878b  !important;
+    color: #ffffff !important;
+}
+
+.accordion-button:not(.collapsed)::after{
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ffffff'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>") !important;
+}
+
+/* basic components */
+
+.btn-dark:hover{
+    background-color: #d9d9d9!important;
+    color: #292b2c !important;
+}
+
+.btn-light:hover{
+    background-color: #292b2c!important;
+    color: #d9d9d9 !important;
+}
+
+/* curcular button */
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+/* user list */
+.userList-container{
+    width: 95%;
+    overflow-y: auto;
+}
+
+/* video components */
+#camDisplay{
+    margin: 0px auto;
+    width: 80vw;
+    height: calc(80vw * 9 / 16);
+    position: relative;
+
+}
+
+#liveVdo{
+    position:relative;
+    top:-48px;
+    z-index: 1;
+}
+
+#setting{
+    padding-top: 5%;
+    padding-bottom: 1%;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+
+#pplList{
+    width: 20vw;
+    height: calc(69vw * 9 / 16);
+    overflow-y: overlay;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-right: 2.4%;
+}
+
+#infoSlot{
+    width: 20vw;
+    height: calc(80vw * 9 / 16);
+    padding-top: 1%;
+    padding-bottom: 1%;
+    padding-left: 1.2%;
+    padding-right: 2.4%;
+}
+
+.form-check-input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+    outline: none;
+    margin-right: 10px;
+  }
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: black;
+}
+
+#videoElement {
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    object-fit: cover;
+    background-color: #666;
+}
+
+[data-new-window] {
+    display: none;
+}
+
+#webBtn{
+    position: absolute;
+    bottom: 30%;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    border-radius:50px;
+
+    display: grid;
+    place-items: center;
+    
+
+    font-size: 150%;
+    -webkit-text-stroke-width: 30%;
+}
+
+.captureMenu{
+    position: absolute;
+    top: 87.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    z-index: 10;
+}

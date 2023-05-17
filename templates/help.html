@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% include "header.html" %}
+    </head>
+    <body>
+        <!-- NavBar -->
+        {% include "navBar.html" %}
+
+        <!-- Main -->
+        <div class="page-content" id="main" style="overflow-x: hidden; scroll-behavior: smooth;">
+            <div class="row">
+                <div class="col-xs-1">
+                    
+                </div>
+                <div class="col-sm-2">
+                    <nav>
+                        <ul class="nav flex-column" style="padding-left: 5%; padding-top:5%; position:absolute">
+                            <h5>Table of Contents</h5>
+                            <li class="nav-item">
+                                <button class="btn d-inline-flex align-items-center rounded collapsed text-dark content-section bi bi-caret-right" data-bs-toggle="collapse" data-bs-target="#getting-started" aria-expanded="false">
+                                    Getting started
+                                </button>
+                                <div class="collapse" id="getting-started">
+                                    <ul style="list-style-type:none">
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#1-1">Introduction</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#1-2">System Requirement</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#1-3">Creating the Account</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#1-4">Logging In</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <button class="btn d-inline-flex align-items-center rounded collapsed text-dark content-section bi bi-caret-right" data-bs-toggle="collapse" data-bs-target="#user-manual" aria-expanded="false">
+                                    User Manual
+                                </button>
+                                <div class="collapse" id="user-manual">
+                                    <ul style="list-style-type:none">
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#2-1">Basic Features and Functionality</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#2-2">Advanced Features and Functionality</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#2-3">Troubleshooting</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {% if session.user != Null %}
+                            <li class="nav-item">
+                                <button class="btn d-inline-flex align-items-center rounded collapsed text-dark content-section bi bi-caret-right" data-bs-toggle="collapse" data-bs-target="#admin-manual" aria-expanded="false">
+                                    Admin Manual
+                                </button>
+                                <div class="collapse" id="admin-manual">
+                                    <ul style="list-style-type:none">
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-1">User Management</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-2">Timeline Data Displaying</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-3">Model Training or Updating</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-4">Committing Log</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-5">Additional Data Management</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#3-6">Troubleshooting</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <button class="btn d-inline-flex align-items-center rounded collapsed text-dark content-section bi bi-caret-right" data-bs-toggle="collapse" data-bs-target="#other" aria-expanded="false">
+                                    Other
+                                </button>
+                                <div class="collapse" id="other">
+                                    <ul style="list-style-type:none">
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#4-1">FAQ</a></li>
+                                        <li class="nav-item"><a class="d-inline-flex align-items-center rounded text-muted text-no-ud" href="#4-2">Contact Support</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col" style="padding-left: 7%;">
+                    <div class="page-title d-flex justify-content-center" style="margin-top: 3%; margin-bottom: 2%;">
+                        <h1><b>User Manual</b></h1>
+                    </div>
+                    <div class="title">Getting Started</div>
+                    <div id="1-1"><h4>Introduction</h4></div>
+                    <div class="paragraph">
+                        Welcome to the user manual for Real-Time Masked Face Recognition with Machine Learning on the Web Application. 
+                        This guide is designed to help you make the most of our powerful and easy-to-use application, whether you're a first-time user or an experienced administrator. 
+                        In this manual, you will find detailed instructions and helpful tips for using the application's many features and functionalities, as well as troubleshooting advice for common issues. 
+                        Whether you're looking to learn more about the application's basic features or advanced admin capabilities, this user manual has everything you need to get started.
+                    </div>
+                    <div id="1-2"><h4>System Requirement</h4></div>
+                    <ul>
+                        <li>
+                            <b>Recommended Hardwares (Client):</b> Any computer with camera accessed.
+                        </li>
+                        <li>
+                            <b>Recommended Hardwares (Server):</b> Computer with i5-8300H 2.3GHz processor, 8 GB of RAM, and GTX 1050 graphic card (Minimum spec)
+                        </li>
+                        <li>
+                            <b>Recommended Web Browsers:</b> Microsoft Edge, Google Chrome, Mozilla Firefox
+                        </li>
+                        <li>
+                            <b>Recommended Screen Setting:</b> For a better user experiencewith, webpage with 1920x938 display size works best for this application, especially on a page with live video. (Due to the server-side video)
+                        </li>
+                        <li>
+                            <b>Recommended External Libraries:</b> To ensure the best performance and functionality of our web application, we recommend installing the following Python libraries listed in requitement.txt.
+                            <br>You can click the button below to copy the command line and use it in the command line terminal of the root directory.
+                            <div class="bg-dark rounded text-center justify-self-center" style="width:20%; height:100px; margin:auto;" onclick="copyToClipboard('pipCommand')">
+                                <br>
+                                <span class="text-light">pip -install requirement.txt</span><br>
+                                <span class="text-light" id="copyText">&lt; Click to Copy &gt;</span>
+                                <textarea id="pipCommand" style="position: absolute; top: -100px; left: -100px;">pip -install requirement.txt</textarea>
+                            </div>                            
+                        </li>
+                    </ul>
+                    <div id="1-3"><h4>Creating the Account</h4></div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/login-btn.jpg') }}" height="100px">
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <img src="{{ url_for('static', filename='images/tutorial/setup.jpg') }}" height="200px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /setup page
+                    </div>
+                    <div class="paragraph">
+                        In order to login and access more features of the application, the user must have his/her account first. When you are the first user who use the application, 
+                        when you press "Login" button, it will redirect to setup page to create the first account. The first account will always be an admin role, which grants the authority
+                        to access the data of every user in the database.
+                    </div>
+                    <div>
+                        <b>Please note that</b> if there is at least one admin user in the database, this page cannot be accessed by any means, including entering the page's URL directly into the browser.
+                    </div>
+                    <br>
+                    
+                    <div id="1-4"><h4>Logging In</h4></div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/login-btn.jpg') }}" height="100px">
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <img src="{{ url_for('static', filename='images/tutorial/login.jpg') }}" height="200px">
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <img src="{{ url_for('static', filename='images/tutorial/login-btn-login.jpg') }}" height="100px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /login page
+                    </div>
+
+                    <div class="paragraph">
+                        Once you have your account, you can press "Login" button again to go to /login page. Input your email and password, then, press login. If your email and password are matched, and you are admin, you will be logged in to the application and access more features.
+                    </div>
+                    
+                    <br><br>
+                    <div class="title">User Manual</div>
+                    <div id="2-1"><h4>Basic Features and Functionality</h4></div>
+                    <div class="paragraph">
+                        There is one main feature that normal users can do in this application. Also, there are some features that limited to admin user to use, such as accessing and managing user data, model training, etc. 
+                    </div>
+                    <ul>
+                        <li>
+                            <b>Face Recognition:</b> As the user appear in the camera scene when the application open /liveCam page, the aplication will predict the informaion from the face data and display the cropped face image and information on the right side column.
+                            The program can also detect unknown user, it also crops the detected face image, but the information will be displayed as "UNKNOWN". All detected data will be recored in the database.
+                        </li>
+                        <br>
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/rtfr.jpg') }}" height="300px">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            /liveCam page (With known user detected)
+                        </div>
+                    </ul>
+                    <div id="2-2"><h4>Advanced Features and Functionality</h4></div>
+                    <div class="paragraph">
+                        This subsection focuses on engineering concepts and theories of Machine Learning, Deep Learning, Convolutional Neural Network, database, web application, and etc,
+                         which are the core knowledges behind this application.
+                    </div>
+                    <div id="2-2-1"><h5>Machine Learning</h5></div>
+                    <div class="paragraph">
+                        Machine learning is a technology in the data science field. The machine learning algorithms are used to
+                        make a prediction or classification based on data used to train the models. Additionally, the algorithms are
+                        able to learn and improve their accuracy over time. Traditional machine learning can be categorized into 4
+                        types: supervised learning, unsupervised learning, semi-supervised learning, and reinforcement learning.
+                    </div>
+                    <div id="2-2-2"><h5>Deep Learning</h5></div>
+                    <div class="paragraph">
+                        Deep learning is a subfield of machine learning. It is a neural network with many layers of interconnected
+                        nodes which enable it to learn from a huge amount of data. The more layers it has, the more potential refined
+                        and accurate the prediction is. Moreover, deep learning could process unstructured data such as digital images,
+                        and could detect important features used to predict or classify the output without requiring a human interaction,
+                        unlike traditional machine learning.
+                    </div>
+                    <div class="paragraph">
+                        Some examples of neural networks include: convolutional neural network (CNN)&semi; used mainly in image
+                        classification, and transfer learning&semi; used for training a pre-trained model for a new objective
+                    </div>
+                    <div id="2-2-3"><h5>Convolutional Neural Network</h5></div>
+                    <div class="paragraph">
+                        Convolutional neural network (CNN) is a network architecture or an algorithm for deep learning. It could
+                        recognize objects or faces from the input images by learning the features of the image over many different
+                        layers, or hidden layers. CNN has three main layers which are&semi; convolutional layer, pooling layer, and fully connected layer.
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/CNN_diagram.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        CNN Diagram
+                    </div>
+                    <div class="paragraph">
+                        The convolutional layer will extract the features from the input image by using a kernel or a filter to
+                        move around the input until a feature map is completed. Next, the pooling layer will reduce the number of
+                        parameters in the input, which helps with training time and efficiency. Normally, pooling layers will be used
+                        after convolutional layers before passing the input to fully-connected layers. Finally, the fully-connected layer
+                        will handle the classification using the softmax function to determine what the output should be.
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/convolusion_op.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        The Convolution Operation
+                    </div>
+                    <div class="paragraph">
+                        Convolutional layers, a kernel which is an array of weights, will be applied to the input image to calculate
+                        a dot product between them. After that, the result will be passed into the output array. The process will be
+                        repeated by moving the filter across the input, until all dot products have been computed, thus completing a
+                        feature map. There are three parameters affecting the output size&semi; a number of kernels, stride values, and a
+                        padding.
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/max_pool_op.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Max Pooling Operation
+                    </div>
+                    <div class="paragraph">
+                        For pooling layers, a similar filter is applied to the input, but the difference is that the filter does not
+                        have weights. Pooling reduces the spatial size of the input, which results in a simpler computation due to
+                        fewer parameters to consider. The layers are also capable of extracting notable features. There are two types
+                        of pooling&semi; max pooling which takes the highest value of the area covered by the filter, and average pooling
+                        which returns the average value.
+                    </div>
+                    <div class="paragraph">
+                        Lastly, the fully-connected layers are used mostly at the end of the network. They use the features learned
+                        from previous layers to make predictions or perform classification. Softmax function is used to classify the
+                        input in the form of probabilities, which sum up to 1.
+                    </div>
+                    <div id="2-2-4"><h5>Transfer Learning</h5></div>
+                    <div class="paragraph">
+                        Transfer learning is a technique which is training an existing model already trained for one task to be able
+                        to use it on different similar tasks. The knowledge from the original model will be passed on to the new model,
+                        reducing the duration of the model learning process. Moreover, it could improve the model performance
+                        without requiring a lot of data, since the model has already known some patterns at the beginning.
+                    </div>
+                    <div class="paragraph">
+                        The technique is suitable for a model which takes an image data as an input, and must determine what
+                        is shown in the input. The original model could be trained with a large amount of images and could make
+                        predictions on many classes. Therefore, using transfer learning would help with the modeling process, since
+                        the new model will have learned about different features already.
+                    </div>
+                    <div id="2-2-5"><h5>Face Recognition</h5></div>
+                    <div class="paragraph">
+                        Face recognition is a method used to verify a person's identity, using only their face as an input to compare
+                        with face images in the database. It transforms the input image into several numerical data, finds similarity
+                        from data stored, then returns the output after analyzing. The face recognition requires many conditions to
+                        make it accurate, however, if being worked on consistently, it would gradually improve.
+                    </div>
+                    <div class="paragraph">
+                        This technology is used in many fields and areas, mostly for a security purpose. For example, law
+                        enforcement compares mugshots with images in the facial recognition system to confirm the arrested person's
+                        identity, or a corporation using face scan to record employee attendance for working days
+                    </div>
+                    <div id="2-2-6"><h5>Computer Vision</h5></div>
+                    <div class="paragraph">
+                        Computer vision is a technology in the artificial intelligence field. It focuses on enabling computers
+                        to have an ability to detect and identify objects, similar to human vision. For computers to replicate this
+                        capability, thousands of labeled visual data and algorithms for pattern detection are required. In the present,
+                        it is integrated in several applications&semi; facial recognition and augmented reality for example. One of the algorithm that is used in this application is Haar Cascade.
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/haar_cascade.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Integral Image and Haar Features
+                    </div>
+                    <div class="paragraph">
+                        Haar feature-based cascade classifiers, or Haar cascades for short, 
+                        is an algorithm for object detection using line and edge features. In order to create a classifier, a
+                        huge number of positive and negative images is needed. Haar features are computed by finding the difference
+                        between sums of pixels in black and white rectangles. However, it would take a long time to compute if
+                        the image is very large, so an integral image is used to speed up the process by reducing the number of
+                        computations. After that, the features that will be used in a classifier are selected by a boosting technique
+                        called Adaboost.
+                    </div>
+                    <div id="2-2-7"><h5>Web Application</h5></div>
+                    <div class="paragraph">
+                        Web application is an application program that is stored on a server, and delivered by the internet. In
+                        order to access and use the web application, the user must use any web browser, such as Microsoft Edge,
+                        Google Chrome, or Safari, to access the application.
+                    </div>
+                    <div class="paragraph">
+                        There are three main parts of the application: Web server, application server, and the database. The web
+                        servers manage the requests that come from a client site application, while the application server completes
+                        the requested task. And the database is used to store any needed information.
+                    </div>
+                    <div class="paragraph">
+                        The main advantages of web applications are: the user does not require to download the application to
+                        the computer, which helps save up some storage space. The application can be accessed via various types of
+                        browsers and devices. And it does not limit the amount of users who use the application.
+                    </div>
+                    <div id="2-2-8"><h5>Database</h5></div>
+                    <div class="paragraph">
+                        Database is the organized collection of the data that are connected together and stored in the computer
+                        system. It is controlled by Database Management System or DBMS. The DBMS and the application are
+                        referred to as the database system. Nowadays, there are many types of databases depending on
+                        how they store the data, for example, relational database, distributed database, hierarchical database,network
+                        database, object-oriented database, and NoSQL database.
+                    </div>
+                    <div id="2-3"><h4>Troubleshooting</h4></div>
+                    <div class="paragraph">
+                        If you have any problem when using the application, or there is something wrong with your information, please inform the issue to any admin user to check it.
+                    </div>
+                    {% if session.user != Null %}
+                    <br><br>
+                    <div class="title">Admin Manual</div>
+                    <div class="paragraph">
+                        This section focuses on the detail and how to use each features that are exclusive for admin users, for example, data adding, data editing, data deleting, timeline data accessing, additional data management, model training or updating, and committing log data accessing.
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/admin_menu.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Admin Menu
+                    </div>
+                    <div class="paragraph">
+                        Admin users access more functions in the application after logging in. 
+                    </div>
+                    <div id="3-1"><h4>User Management</h4></div>
+                    <div class="paragraph">
+                        Admin users can add the new user data into the system, access and edit the selected user data, including updating new face images, and delete the selected user data from the system. Its scenario is similar when we go
+                        and make a new ID card or bank account, normal users only need to capture their face images, meanwhile, admin users input their information to the form on the webpage.
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/add.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /newUser page
+                    </div>
+                    <div class="paragraph">
+                        In /newUser webpage, or user adding page, is where admin users can input and add a new user information into the database. On the left side, there is a camera screen with a button set for capturing images. 
+                        On the right column, there is an input form to input a new user data. Please take note that email must be unique from other existing users.
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center" >
+                            <img src="{{ url_for('static', filename='images/tutorial/capture1.jpg') }}" height="75px">
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <div>Wait for 100 images to be captured. The user may be facing various directions and displaying different expressions.</div>
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <img src="{{ url_for('static', filename='images/tutorial/capture2.jpg') }}" height="75px">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Capturing face images step by step
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/img_preview1.jpg') }}" height="200px">
+                            &emsp;<i class="bi bi-arrow-right" style="font-size:40px;"></i>&emsp;
+                            <img src="{{ url_for('static', filename='images/tutorial/add_modal.jpg') }}" height="200px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Opening face image modal
+                    </div>
+                    <div class="paragraph">
+                        When choosing image category and press capture button, the application will automatically capture 100 images using face detection algorithm and crop them, then store in a JSON in base64 string format. When both masked and unmasked images are captured,
+                        The face image modal is accessable, when opening it, 200 images of both masked and unmasked faces are displayed in modal, separated by masked/unmasked button.
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-evenly">
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/infoslot_noadmin.jpg') }}" height="500px">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/infoslot_admin.jpg') }}" height="700px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        User data form between normal user and admin user
+                    </div>
+                    <div class="paragraph">
+                        On the form, there is one main difference betweeb admin and non-admin information slot. Form for admin user needs password input, it shows when the admin checkbox is checked.
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/user.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /userList page
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-evenly">
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/user_mask.jpg') }}" height="300px">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/user_unmask.jpg') }}" height="300px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Masked and Unmasked face images modal
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/user_delete.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Confirmation Modal before Deleting the Selected User Data
+                    </div>
+                    <div class="paragraph">
+                        Admin users can access /userList page to access the list of existing users in the database. The information will be shown in table format, except password information. Admin can click on image preview button to see
+                        face images of the selected user. There are also 2 buttons on the right columns of each person: Edit, and Delete. When selecting edit button, it will send admin user to /editUser page, and deleting button will be
+                        displayed the confirming modal to make confirm data deleting.
+                    </div>
+
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/edit.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /editUser page
+                    </div>
+                    <div class="paragraph">
+                        When opening /editUser/&lt;userId&gt; page, the application queries the old information of the selected user and display in input slot. The method is similar to user adding page, except admin user only needs to input the updated data,
+                        including updating face images.
+                    </div>
+                    <div id="3-2"><h4>Timeline Data Displaying</h4></div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/timeline.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /timeline page
+                    </div>
+                    <br>
+                    <div class="d-flex justify-content-evenly">
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/timeline_known.jpg') }}" height="200px">
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div style="display: inline-block;">
+                                <img src="{{ url_for('static', filename='images/tutorial/timeline_unknown.jpg') }}" height="200px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Detailed information of known and unknown users
+                    </div>
+                    <div class="paragraph">
+                        Every detected users from face recognition page are recorded in the system, and admin users can access this page to see the timeline data of detected users. There is a button to see the detail of each record, including the cropped image of detected user.
+                        Unknown users information are recorded with "UNKNOWN" values as there is no matched user data in the database, but the application still shows the cropped image, so admin users can determine who appeared in the camera scene.
+                    </div>
+                    <br>
+                    <div id="3-3"><h4>Model Training or Updating</h4></div>
+                    <div class="paragraph">
+                        In admin menu, there is a button to click to train or update 3 face recornition models. When clicking, the server starts model training program in the background, so the application can use normally.
+                        The training duration is varied depend on the amount of users in the database, so we recommend you to train the model after worktime, and leave the server online all night.
+                    </div>
+                    <br>
+                    <div id="3-4"><h4>Committing Log</h4></div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/user_log.jpg') }}" height="200px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        Committing Log Modal
+                    </div>
+                    <div class="paragraph">
+                        After clicking "User action log" button, the application queries the committing log data and shows in the modal. Every actions that admin users commit to the application and database are recorded in the database.
+                        This data is used to check for the change in the application, in case that there is something wrong in the database and models.
+                    </div>
+                    <div id="3-5"><h4>Additional Data Management</h4></div>
+                    <br>
+                    <div class="d-flex justify-content-center">
+                        <div style="display: inline-block;">
+                            <img src="{{ url_for('static', filename='images/tutorial/option.jpg') }}" height="300px">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        /option page
+                    </div>
+                    <div class="paragraph">
+                        After clicking "Data Management" button, application will send user to the data management page where user can manage the position, department, and FAQ data.
+                    </div>
+                    <br>
+                    <div id="3-6"><h4>Troubleshooting</h4></div>
+                    <div class="paragraph">
+                        If there is any error in the application, try refreshing the webpage. If the camera is not working, please check the camera connection and access permission, and restart the server application.
+                        If the server is closed unexpectedly, try checking the server terminal. And if the database is corrupted, try backing up the old /mysql directory, create a new /mysql directory, copy the files from /backup and paste in the new /mysql, then copy the database directory, as well as ibdata1 file, and paste in the new /mysql. And try restart the server. For a video about how to repair the database: <a href="https://www.youtube.com/watch?v=XH8wOgkSukk" class="text-dark">[How to fix damaged database]</a> 
+                        <br>If you have any other problems, please <a class="text-dark" href="#4-2">contact us</a>.
+                    </div>
+                    {% endif %}
+                    <br>
+                    <br>
+                    <div class="title">Other</div>
+                    <div id="4-1"><h4>FAQ</h4></div>
+                    <!-- do later -->
+                    <div class="accordion" id="qna_part">
+                        {% for list in qna_list %}
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="question{{list.0}}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ans{{list.0}}" aria-expanded="false" aria-controls="ans{{list.0}}">
+                              {{ list.1 }}
+                            </button>
+                          </h2>
+                          <div id="ans{{list.0}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              {{ list.2 }}
+                            </div>
+                          </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <br>
+                    <div id="4-2"><h4>Contact Support</h4></div>
+                    <div class="d-flex justify-content-center">
+                        <table class="table table-borderless">
+                            <thead>
+                              <tr>
+                                <th colspan="3">Members</th>
+                                <th>Email</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>1.</td>
+                                <td colspan="2">Nattawut Na Lumpoon</td>
+                                <td>nattawut.gmail@mail.kmutt.ac.th</td>
+                              </tr>
+                              <tr>
+                                <td>2.</td>
+                                <td colspan="2">Pavat Poonpinij</td>
+                                <td>pavat.poonpinij@mail.kmutt.ac.th</td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                    <!-- footer -->
+                    <div class="footer" style="margin-top: 5%;">
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="{{ url_for('static', filename='js/help.js') }}"></script>
+</html>
