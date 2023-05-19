@@ -686,7 +686,7 @@ def updateInfo(user_id):
         editLastName = request.form["lastName"]
         editGender = request.form["gender"]
         editAdmin = 0
-        if request.form["isAdmin"] == "True":
+        if request.form["isAdmin"] == "True" and len(request.form["password"]) > 0:
             editAdmin = 1
             editPasscode = hashlib.sha256(request.form["password"].encode()).hexdigest()
         else:
