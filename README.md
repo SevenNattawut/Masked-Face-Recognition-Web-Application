@@ -4,7 +4,7 @@ app.py - main server app (connect to database first before running the applicati
 
 imageFilenameChange.py - for changing image filenames
 
-requirement.txt - necessary libraries
+requirement.txt - necessary library list ("pip install -r requirement.txt" in cmd)
 
 util_build_small_model.py - model training function
 
